@@ -16,23 +16,34 @@
         <aside id='aside'>
             <h4>Result</h4>
         </aside>
-        <div id="all_goats">
+        <div id="all_items">
+            <form id="itemform">
+                <fieldset>
+                  <legend>display  option:</legend>
+                <label for="numOfImages">Number of Images you want ti choose from</label>
+                <input type="number" id="numOfImages" placeholder="ex: 1">
+                <label for="numOfLoops">How many times you want to click</label>
+                <input type="text" id="numOfLoops" placeholder="ex: 10">
+                <input type="submit">
+              </fieldset>
+              </form>
             <h3>please select the element that you like </h3>
-            <div id="left_goat"> 
-                <img id="left_goat_img" src="" alt="">
+            <div id="left_item"> 
+                <img id="left_item_img" src="" alt="">
               </div>
         
-              <div id="center_goat"> 
-                <img id="center_goat_img" src="" alt="">
+              <div id="center_item"> 
+                <img id="center_item_img" src="" alt="">
               </div>
         
-              <div id="right_goat">
-                <img id="right_goat_img" src="" alt="">
+              <div id="right_item">
+                <img id="right_item_img" src="" alt="">
               </div>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
     </main>
     <footer></footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

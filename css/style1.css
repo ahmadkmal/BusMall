@@ -39,16 +39,16 @@ aside{
     float: left;
     border: 2px solid black;
 }
-main #all_goats {
+main #all_items {
     width: 72%;
     float: left;
     margin: 20px auto;
 }
-main #all_goats div{
+main #all_items div{
     display: inline;
     margin: 20px auto;
 }
-main #all_goats div img {
+main #all_items img {
     border-radius: 5px;
     border: gray 1px solid;
     box-shadow: 13px 17px 13px grey;
