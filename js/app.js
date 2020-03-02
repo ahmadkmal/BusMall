@@ -1,52 +1,6 @@
 'use strict';
 
-/*
-  Practice domain modeling by planning out an app w that allows users to choose their favorite between two items
-  Let students participate by suggesting the steps needed to make the app run
-  App Flow:
-  - Welcome and instructions
-  - Randomly put 2 items on the screen
-    - Random number generator
-    - a function to display items
-  - A user clicks on a item
-    - event listener needs to be on the image to fire the event handler
-    - the event handler firesx
-      - ? check if total clicks is 5 ?
-      - stop letting the user click
-    - if the user reach 5 tries remove image section for items and display to the user you fininshed.
-  HTML
-    - have a left and right image container in the html
-    - Give them id's so we can select them
-  We need an Array to hold all image Objects
-  function to randomly pick an image{
-  }
-  click on an image, targetted by id
-  add event listener('click', function(){
-  })
-*/
-
-var itemsImages = [
-  'bathroom.jpg',
-  'bubblegum.jpg',
-  'dog-duck.jpg',
-  'pet-sweep.jpg',
-  'sweep.png',
-  'usb.gif',
-  'bag.jpg',
-  'boots.jpg',
-  'chair.jpg',
-  'dragon.jpg',
-  'scissors.jpg',
-  'tauntaun.jpg',
-  'water-can.jpg',
-  'banana.jpg',
-  'breakfast.jpg',
-  'cthulhu.jpg',
-  'pen.jpg',
-  'shark.jpg',
-  'unicorn.jpg',
-  'wine-glass.jpg'
-];
+var itemsImages = ['bathroom.jpg','bubblegum.jpg','dog-duck.jpg','pet-sweep.jpg','sweep.png', 'usb.gif', 'bag.jpg', 'boots.jpg','chair.jpg','dragon.jpg','scissors.jpg','tauntaun.jpg', 'water-can.jpg', 'banana.jpg', 'breakfast.jpg', 'cthulhu.jpg', 'pen.jpg', 'shark.jpg', 'unicorn.jpg', 'wine-glass.jpg'];
 
 // Globals
 var leftitemImage = document.querySelector('#left_item_img');
@@ -58,31 +12,89 @@ var inputImeges = 0;
 var loops = 0;
 var imageTodisplay = [];
 var items = [];//an array to store all items object
-var totalClicks = 1;
+var totalClicks = 0;
 var currntImages = [];
 var previousImages = [];
-// var num1;
-// var num2;
-// var num3;
-// leftitemImage.src = `images/${itemsImages[0]}.jpg`;
-// leftitemImage.alt = itemsImages[0];
 
-// rightitemImage.src = `images/${itemsImages[1]}.jpg`;
-// rightitemImage.alt = itemsImages[1];
 
-//constructor function to generate dynamic items objects
+
+// make a div
+var divEl = document.createElement('div');
+
+var pEl = document.createElement('p');
+pEl.innerText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+// event listner to take submit
 inputForm.addEventListener('submit', getValues);
 
+
+
+/// function for dorm submit
 function getValues(event) {
   event.preventDefault();
   groupImageSection.innerHTML = '';
-
+  var h3El = document.createElement('h3');
+  h3El.innerHTML = 'please select the element that you like';
+  groupImageSection.appendChild(h3El);
+  groupImageSection.appendChild(divEl);
+  groupImageSection.appendChild(pEl);
   console.log(event);
   inputImeges = Number(event.target.numOfImages.value);
   loops = Number(event.target.numOfLoops.value);
+  // enter datat , remove form , dispaly text , call function pickrandom image
   pickRandomImages();
 }
 
+
+
+// to dispaly th images
+function pickRandomImages() {
+  imagGeneration();
+// to diplay image by input times
+  for (let numOfimges = 0; numOfimges < inputImeges; numOfimges++){
+    console.log(currntImages);
+    var imgEl = document.createElement('img');
+    var oo = items[currntImages[numOfimges]].urlImage;
+    imgEl.setAttribute('src',oo);
+    imgEl.setAttribute('alt',items[currntImages[numOfimges]].name);
+    items[currntImages[numOfimges]].showing();
+    console.log(items[currntImages[numOfimges]].showen);
+    imageTodisplay.push(imgEl);
+    divEl.appendChild(imgEl);
+    console.log('passed');
+  }
+  previousImages = currntImages ;
+  currntImages = [];
+}
+
+
+// to genaret numbers withou depublic and not from previous
+function imagGeneration() {
+  do{
+    currntImages = [];
+    for (let index = 0; index < inputImeges; index++){
+      currntImages.push(randomNumber(0, itemsImages.length-1));
+    }
+
+  }
+  while (currntImages.some(r => previousImages.includes(r)) || hasDuplicates(currntImages));
+
+}
+
+// this for duplicate from array to array
+function hasDuplicates(array) {
+  var valuesSoFar = Object.create(null);
+  for (var i = 0; i < array.length; ++i) {
+    var value = array[i];
+    if (value in valuesSoFar) {
+      return true;
+    }
+    valuesSoFar[value] = true;
+  }
+  return false;
+}
+
+
+// counstractur for itemes
 function Item(name) {
   this.name = name.slice(0, -4);
   this.urlImage = `assets/${name}`;
@@ -96,45 +108,13 @@ Item.prototype.showing = function () {
 Item.prototype.click = function () {
   this.clicked++;
 };
-function hasDuplicates(array) {
-  var valuesSoFar = Object.create(null);
-  for (var i = 0; i < array.length; ++i) {
-    var value = array[i];
-    if (value in valuesSoFar) {
-      return true;
-    }
-    valuesSoFar[value] = true;
-  }
-  return false;
-}
-function imagGeneration() {
-  do{
-    currntImages = [];
-    for (let index = 0; index < inputImeges; index++){
-      currntImages.push(randomNumber(0, itemsImages.length-1));
-    }
 
-  }
-  while (currntImages.some(r => previousImages.includes(r)) || hasDuplicates(currntImages));
 
-}
-function pickRandomImages() {
-  imagGeneration();
-  for (let numOfimges = 0; numOfimges < inputImeges; numOfimges++){
-    console.log(currntImages);
-    var imgEl = document.createElement('img');
-    var oo = items[currntImages[numOfimges]].urlImage;
-    imgEl.setAttribute('src',oo);
-    imgEl.setAttribute('alt',items[currntImages[numOfimges]].name);
-    items[currntImages[numOfimges]].showing();
-    console.log(items[currntImages[numOfimges]].showen);
-    imageTodisplay.push(imgEl);
-    groupImageSection.appendChild(imgEl);
-    console.log('passed');
-  }
-  previousImages = currntImages ;
-  currntImages = [];
-}
+
+
+
+
+
 
 
 for (var i = 0; i < itemsImages.length; i++) {
@@ -143,22 +123,22 @@ for (var i = 0; i < itemsImages.length; i++) {
 // pickRandomImages();
 console.log(items);
 
-// Variables to store the items already on the page
-// the allImages array is a property of the itemPicture constructor
+
+
+// event listener for click on pics
+groupImageSection.addEventListener('click', clickImage);
+
+// function on cleck , identefiy the clicked image by title and name of object incremant number of click
+// if number of click retch the max number remove the event and display chart
 function clickImage(e) {
   for (let index = 0; index < previousImages.length; index++) {
     if(items[previousImages[index]].name===e.target.alt){
       totalClicks++;
-      groupImageSection.innerHTML = '';
-      pickRandomImages();
       items[previousImages[index]].click();
       
       if (totalClicks === loops) {
       //remove event listener
         groupImageSection.removeEventListener('click', clickImage);
-        leftitemImage.remove();
-        centeritemImage.remove();
-        rightitemImage.remove();
         console.log('finished');
         var secEl = document.getElementById('aside');
         
@@ -169,46 +149,17 @@ function clickImage(e) {
           darw();
   
         }
+
       }
+      divEl.innerHTML = '';
+      pickRandomImages();
     }
   
   }
-  // if( e.target.id === 'left_item_img' ){
-  //   pickRandomImages();
-  //   totalClicks++;
-  //   items[num1].click();
-  // }
-  // if(e.target.id === 'right_item_img'){
-  //   pickRandomImages();
-  //   items[num1].click();
-  //   totalClicks++;
-  // }
-  // if(e.target.id === 'center_item_img')
-  // {
-  //   pickRandomImages();
-  //   items[num1].click();
-  //   totalClicks++;
-  // }
-  // console.log(e);
-  // if (totalClicks === loops) {
-  //   //remove event listener
-  //   groupImageSection.removeEventListener('click', clickImage);
-  //   leftitemImage.remove();
-  //   centeritemImage.remove();
-  //   rightitemImage.remove();
-  //   console.log('finished');
-  //   var secEl = document.getElementById('aside');
-  //   for (var i = 0; i < itemsImages.length; i++) {
-  //     var pEl = document.createElement('p');
-  //     pEl.innerText = `${items[i].name} had a ${items[i].clicked} votes and was showen ${items[i].showen} times`;
-  //     secEl.appendChild(pEl);
-  //     darw();
-
-  //   }
-  // }
+  
 }
 
-groupImageSection.addEventListener('click', clickImage);
+
 
 //when they reach total max clicks, remove the clicky function
 
