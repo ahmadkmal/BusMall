@@ -1,0 +1,85 @@
+body {
+    width: 960px;
+    background-color: lightgray;
+    margin: auto;
+    height: 1500px;
+}
+header * {
+    float : left ;
+  
+}
+header{
+    height: 50px;
+    background-color: lightyellow;
+    width: 960px;
+}
+header img {
+    height: 40px;
+}
+header h1 {
+    text-align: center;
+    font-size: 35px;
+    font-family: fantasy;
+    letter-spacing: 5px;
+    margin: auto;
+    position: relative;
+    left: 350px;
+}
+main *> {
+    float: left;
+}
+main{
+    margin: 20px auto;
+}
+aside{
+    width: 20%;
+    min-height: 350px;
+    padding: 10px;
+    margin: 20px;
+    float: left;
+    border: 2px solid black;
+}
+main #all_goats {
+    width: 72%;
+    float: left;
+    margin: 20px auto;
+}
+main #all_goats div{
+    display: inline;
+    margin: 20px auto;
+}
+main #all_goats div img {
+    border-radius: 5px;
+    border: gray 1px solid;
+    box-shadow: 13px 17px 13px grey;
+    width: 172.8px;
+    height: 172.8px;
+    margin: 25px;
+
+}
+h3{
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+h4{
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;  
+}
+footer{
+    height: 50px;
+    background-color: darkgray;
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 960px;
+    z-index: 100;
+}
+p {
+    padding: 20px 40px;
+    
+}
+#aside p{
+    padding: 3px;
+}
