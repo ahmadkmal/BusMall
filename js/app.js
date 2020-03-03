@@ -3,14 +3,10 @@
 var itemsImages = ['bathroom.jpg','bubblegum.jpg','dog-duck.jpg','pet-sweep.jpg','sweep.png', 'usb.gif', 'bag.jpg', 'boots.jpg','chair.jpg','dragon.jpg','scissors.jpg','tauntaun.jpg', 'water-can.jpg', 'banana.jpg', 'breakfast.jpg', 'cthulhu.jpg', 'pen.jpg', 'shark.jpg', 'unicorn.jpg', 'wine-glass.jpg'];
 
 // Globals
-var leftitemImage = document.querySelector('#left_item_img');
-var rightitemImage = document.querySelector('#right_item_img');
-var centeritemImage = document.querySelector('#center_item_img');
 var groupImageSection = document.getElementById('all_items');
 var inputForm = document.getElementById('itemform');
 var inputImeges = 0;
 var loops = 0;
-var imageTodisplay = [];
 var items = [];//an array to store all items object
 var totalClicks = 0;
 var currntImages = [];
@@ -49,7 +45,7 @@ function getValues(event) {
 // to dispaly th images
 function pickRandomImages() {
   imagGeneration();
-// to diplay image by input times
+  // to diplay image by input times
   for (let numOfimges = 0; numOfimges < inputImeges; numOfimges++){
     console.log(currntImages);
     var imgEl = document.createElement('img');
@@ -58,7 +54,6 @@ function pickRandomImages() {
     imgEl.setAttribute('alt',items[currntImages[numOfimges]].name);
     items[currntImages[numOfimges]].showing();
     console.log(items[currntImages[numOfimges]].showen);
-    imageTodisplay.push(imgEl);
     divEl.appendChild(imgEl);
     console.log('passed');
   }
@@ -135,28 +130,28 @@ function clickImage(e) {
     if(items[previousImages[index]].name===e.target.alt){
       totalClicks++;
       items[previousImages[index]].click();
-      
+
       if (totalClicks === loops) {
       //remove event listener
         groupImageSection.removeEventListener('click', clickImage);
         console.log('finished');
         var secEl = document.getElementById('aside');
-        
+
         for (var i = 0; i < itemsImages.length; i++) {
           var pEl = document.createElement('p');
           pEl.innerText = `${items[i].name} had a ${items[i].clicked} votes and was showen ${items[i].showen} times`;
           secEl.appendChild(pEl);
           darw();
-  
+
         }
 
       }
       divEl.innerHTML = '';
       pickRandomImages();
     }
-  
+
   }
-  
+
 }
 
 
@@ -184,30 +179,30 @@ function darw() {
         label: '# of click ',
         data: itemsLikes,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)'
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -216,30 +211,13 @@ function darw() {
           'rgba(75, 192, 192, 1)',
           'rgba(153, 102, 255, 1)',
           'rgba(255, 159, 64, 1)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
         ],
-        borderWidth: 1
+        borderWidth: 2
       },
       {
         label: '# of viwes ',
         data: itemsViwes,
+        backgroundColor: 'rgba(200, 200, 200, 0.8)',
         type: 'line'
       }],
       labels: itemsName,
@@ -256,6 +234,9 @@ function darw() {
   });
   canvasEl.style.width = '600px';
   canvasEl.style.height = '600px';
+  canvasEl.style.backgroundColor = 'rgba(240, 240, 240, 0.88)';
+  canvasEl.style.borderRadius = '8px';
+  canvasEl.style.boxShadow = '3px 9px 5px #9493b5';
 }
 
 // Instantiate my image objects
