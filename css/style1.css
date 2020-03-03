@@ -1,35 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
 body {
     width: 960px;
-    background-color: lightgray;
+    /* background-color: lightgray; */
     margin: auto;
-    height: 1500px;
+    max-height: 1500px;
+    min-height: 700px;
+    border: 5px solid rgba(245, 245, 220, 0.8);
+    border-radius: 5px;
+    padding: -3px;
+
 }
 header * {
     float : left ;
   
 }
 header{
-    height: 50px;
-    background-color: lightyellow;
+    height: 60px;
+    background-color: #dedede;
     width: 960px;
 }
 header img {
     height: 40px;
+    padding: 7px;
 }
 header h1 {
     text-align: center;
-    font-size: 35px;
-    font-family: fantasy;
-    letter-spacing: 5px;
+    font-size: 44px;
+    font-family: lobster;
+    letter-spacing: 10px;
     margin: auto;
     position: relative;
-    left: 350px;
+    left: 300px;
+    padding: 7px;
+    text-shadow: black 3px 3px 7px;
+    color: white;
 }
 main *> {
     float: left;
 }
 main{
-    margin: 20px auto;
+    margin: 0px auto  20px 0px;
+    background-image: url(https://cdn5.vectorstock.com/i/1000x1000/91/84/classic-seamless-light-pattern-vector-25329184.jpg);
+    background-repeat: no-repeat;
+    min-height: 640px;
+    width: 100%;
 }
 aside{
     width: 20%;
@@ -37,7 +51,10 @@ aside{
     padding: 10px;
     margin: 20px;
     float: left;
-    border: 2px solid black;
+    border: 2px solid #6b6b6b7a;
+    background-color: rgba(236, 237, 239, 0.88);
+    border-radius: 5px;
+    box-shadow: 1px 1px 14px 3px #9493b5;
 }
 main #all_items {
     width: 72%;
@@ -74,8 +91,8 @@ h4{
     text-align: center;  
 }
 footer{
-    height: 50px;
-    background-color: darkgray;
+    height: 30px;
+    background-color: rgba(169, 169, 169, 0.849);
     display: block;
     position: fixed;
     bottom: 0;
@@ -115,16 +132,22 @@ input[type="submit"]{
     top: -7px;
 }
 input[type="submit"]:hover{
-    background-color: gray;
+    background-color: rgba(255, 195, 82, 0.733);
     cursor: pointer ;
 }
 input[type="number"]:hover {
-    background-color: lightgray;
+    background-color: rgb(245, 223, 223 , 0.75);
     cursor: pointer ;
 }
+
 input[type="number"]:active{
     border: black solid 2px;
 }
 input[type="number"]{
     border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+#itemform1 {
+    background-color: #eaebedb8;
+    box-shadow: 3px 9px 5px #9493b5;
 }
