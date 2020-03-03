@@ -58,8 +58,8 @@ main #all_items img {
 
 }
 main #all_items img:hover {
-    width: 200px;
-    height: 200px;
+    width: 185px;
+    height: 185px;
     border: solid 2px lightsalmon;
     cursor: pointer;
 }
