@@ -7,21 +7,17 @@ var groupImageSection = document.getElementById('all_items');
 var inputForm = document.getElementById('itemform');
 var inputImeges = 0;
 var loops = 0;
-var items = [];//an array to store all items object
+Item.items = [];//an array to store all items object
 var totalClicks = 0;
 var currntImages = [];
 var previousImages = [];
-
-
+var oldItems ;
 
 // make a div
 var divEl = document.createElement('div');
 
 var pEl = document.createElement('p');
 pEl.innerText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-// event listner to take submit
-inputForm.addEventListener('submit', getValues);
-
 
 
 /// function for dorm submit
@@ -33,29 +29,23 @@ function getValues(event) {
   groupImageSection.appendChild(h3El);
   groupImageSection.appendChild(divEl);
   groupImageSection.appendChild(pEl);
-  console.log(event);
   inputImeges = Number(event.target.numOfImages.value);
   loops = Number(event.target.numOfLoops.value);
   // enter datat , remove form , dispaly text , call function pickrandom image
   pickRandomImages();
 }
 
-
-
 // to dispaly th images
 function pickRandomImages() {
   imagGeneration();
   // to diplay image by input times
   for (let numOfimges = 0; numOfimges < inputImeges; numOfimges++){
-    console.log(currntImages);
     var imgEl = document.createElement('img');
-    var oo = items[currntImages[numOfimges]].urlImage;
+    var oo = Item.items[currntImages[numOfimges]].urlImage;
     imgEl.setAttribute('src',oo);
-    imgEl.setAttribute('alt',items[currntImages[numOfimges]].name);
-    items[currntImages[numOfimges]].showing();
-    console.log(items[currntImages[numOfimges]].showen);
+    imgEl.setAttribute('alt',Item.items[currntImages[numOfimges]].name);
+    Item.items[currntImages[numOfimges]].showen++;
     divEl.appendChild(imgEl);
-    console.log('passed');
   }
   previousImages = currntImages ;
   currntImages = [];
@@ -88,37 +78,22 @@ function hasDuplicates(array) {
   return false;
 }
 
-
 // counstractur for itemes
 function Item(name) {
   this.name = name.slice(0, -4);
   this.urlImage = `assets/${name}`;
   this.showen = 0;
   this.clicked = 0;
-  items.push(this);//this its refer to the object that im created
+  Item.items.push(this);//this its refer to the object that im created
 }
-Item.prototype.showing = function () {
+Item.prototype.showing = function(){
   this.showen++;
 };
-Item.prototype.click = function () {
-  this.clicked++;
-};
 
 
 
 
-
-
-
-
-
-for (var i = 0; i < itemsImages.length; i++) {
-  new Item(itemsImages[i]);//we pass the name of the items from the array
-}
 // pickRandomImages();
-console.log(items);
-
-
 
 // event listener for click on pics
 groupImageSection.addEventListener('click', clickImage);
@@ -127,25 +102,38 @@ groupImageSection.addEventListener('click', clickImage);
 // if number of click retch the max number remove the event and display chart
 function clickImage(e) {
   for (let index = 0; index < previousImages.length; index++) {
-    if(items[previousImages[index]].name===e.target.alt){
-      totalClicks++;
-      items[previousImages[index]].click();
+    if(Item.items[previousImages[index]].name===e.target.alt){
+      // console.log(Item.items[0].showen);
+      // Item.items[0].showing();
+      // Item.items[0].showing();
+      // Item.items[0].showing();
+      // Item.items[0].showing();
+      // Item.items[0].showing();
+      // console.log(Item.items[0].showen);
 
-      if (totalClicks === loops) {
+      totalClicks++;
+      Item.items[previousImages[index]].clicked++;
+
+      if (totalClicks >= loops) {
       //remove event listener
         groupImageSection.removeEventListener('click', clickImage);
-        console.log('finished');
         var secEl = document.getElementById('aside');
 
         for (var i = 0; i < itemsImages.length; i++) {
           var pEl = document.createElement('p');
-          pEl.innerText = `${items[i].name} had a ${items[i].clicked} votes and was showen ${items[i].showen} times`;
+          pEl.innerText = `${Item.items[i].name} had a ${Item.items[i].clicked} votes and was showen ${Item.items[i].showen} times`;
           secEl.appendChild(pEl);
-          darw();
 
         }
+        darw();
+        localStorage.removeItem( 'itemsObject');
+        localStorage.setItem( 'imageOnDispaly',0);
+        localStorage.setItem( 'totalLoops', 0);
+        localStorage.setItem( 'currentLoops',0);
+        return;
 
       }
+      setItem();
       divEl.innerHTML = '';
       pickRandomImages();
     }
@@ -153,8 +141,6 @@ function clickImage(e) {
   }
 
 }
-
-
 
 //when they reach total max clicks, remove the clicky function
 
@@ -168,9 +154,9 @@ function darw() {
   var itemsLikes = [];
   var itemsViwes = [];
   for (let index = 0; index < itemsImages.length; index++) {
-    itemsName.push(items[index].name);
-    itemsLikes.push(items[index].clicked);
-    itemsViwes.push(items[index].showen);
+    itemsName.push(Item.items[index].name);
+    itemsLikes.push(Item.items[index].clicked);
+    itemsViwes.push(Item.items[index].showen);
   }
   var myChart = new Chart(canvasEl, {
     type: 'bar',
@@ -244,3 +230,41 @@ function darw() {
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+function setItem(){
+  var order = JSON.stringify(Item.items);
+  localStorage.setItem( 'itemsObject', order);
+  localStorage.setItem( 'imageOnDispaly',inputImeges);
+  localStorage.setItem( 'totalLoops', loops);
+  localStorage.setItem( 'currentLoops',totalClicks);
+}
+
+function getItem(){
+  oldItems = localStorage.getItem('itemsObject');
+  Item.items = JSON.parse(oldItems);
+  inputImeges = localStorage.getItem('imageOnDispaly');
+  loops = localStorage.getItem('totalLoops');
+  totalClicks = localStorage.getItem('currentLoops');
+}
+
+// event listner to take submit
+getItem();
+if (oldItems === []|| oldItems === null){
+  Item.items = [];
+  for (var i = 0; i < itemsImages.length; i++) {
+    new Item(itemsImages[i]);//we pass the name of the items from the array
+  }
+  inputForm.addEventListener('submit', getValues);
+}
+else
+{
+  groupImageSection.innerHTML = '';
+  var h3El = document.createElement('h3');
+  h3El.innerHTML = 'please select the element that you like';
+  groupImageSection.appendChild(h3El);
+  groupImageSection.appendChild(divEl);
+  groupImageSection.appendChild(pEl);
+  pickRandomImages();
+}
+
+
